@@ -224,11 +224,11 @@ void ofxMtActionsObject::actionTouchDown(float _x, float _y, int touchId, ofxMul
 			touches[touchId].x = _x*ofGetWidth();
 			touches[touchId].y = _y*ofGetHeight();
 		} else {
-			touches[touchId] = ofxMtActionTouch(((ofxMultiTouchCustomDataSF*)data)->sessionID, _x*ofGetWidth(), _y*ofGetHeight());
+			touches[touchId] = ofxMtActionTouch(touchId, _x*ofGetWidth(), _y*ofGetHeight());
 		}
 
-		if (highestSessionID < ((ofxMultiTouchCustomDataSF*)data)->sessionID) {
-			highestSessionID = ((ofxMultiTouchCustomDataSF*)data)->sessionID;
+		if (highestSessionID < touchId) {
+			highestSessionID = touchId;
 		}
 
 		updateState();
