@@ -42,6 +42,7 @@ class ofxMtActionsObject : public ofxMtObject{
 	
 		virtual void drawContent();
 		virtual void updateContent();
+		virtual void tapContent(ofVec2f position);
 		
 		bool ownTouchCursor(int touchCursorSessionID);
 	
@@ -53,9 +54,11 @@ class ofxMtActionsObject : public ofxMtObject{
 		void setIsDraggable(bool _draggable, int *_nbOfTouchForDrag=NULL, int arrSize=NULL, bool _horizontal=true, bool _vertical=true );
 		void setIsScalable(bool _scalable, int *_nbOfTouchForScale=NULL, int arrSize=NULL  );
 		void setIsRotatable(bool _rotatable, int *_nbOfTouchForRotate=NULL, int arrSize=NULL  );
+    void setIsTappable(bool _tappable);
 		bool isDraggable();
 		bool isScalable();
 		bool isRotatable();
+		bool isTappable();
 		
 		void actionTouchDown(float x, float y, int touchId, ofxMultiTouchCustomData *data = NULL);
 		void actionTouchMoved(float x, float y, int touchId, ofxMultiTouchCustomData *data = NULL);
@@ -67,7 +70,7 @@ class ofxMtActionsObject : public ofxMtObject{
 		//Spec of the interaction
 		//How many touches/fingers to trigger an action
 		//i.e. drag could be done using 1 finger or 3+ fingers [3+ would be defined by a negative value -3].
-		bool draggable, scalable, rotatable;
+		bool draggable, scalable, rotatable, tappable;
 		int* nbOfTouchForDrag;
 		int* nbOfTouchForScale;
 		int* nbOfTouchForRotate;

@@ -33,6 +33,7 @@ ofxMtActionsObject::ofxMtActionsObject(bool _draggable, bool _scalable, bool _ro
 	draggable = _draggable;
 	scalable = _scalable;
 	rotatable = _rotatable;
+  tappable = false;
 
 	//INIT
 	state = FIXE;
@@ -175,6 +176,11 @@ void ofxMtActionsObject::update() {
 }
 
 //--------------------------------------------------------------
+void ofxMtActionsObject::tapContent(ofVec2f position) {
+  cout << "tap" << endl;  
+}
+
+//--------------------------------------------------------------
 void ofxMtActionsObject::updateContent() {}
 
 //--------------------------------------------------------------
@@ -264,6 +270,14 @@ void ofxMtActionsObject::actionTouchUp(float _x, float _y, int touchId, ofxMulti
 	if(actionTouchHitTest(_x*ofGetWidth(), _y*ofGetHeight())) {
 		map<int,ofxMtActionTouch>::iterator it = touches.find(touchId);
 		if(it!=touches.end()) {
+      //check if it's a tap
+      if (isTappable()){
+        int elapsedTime = ofGetElapsedTimeMillis() - touches[(*it).first].timestamp;
+        if (elapsedTime > 100 && elapsedTime < 1000){
+          tapContent(touches[(*it).first].last);
+        }
+      }
+
 			touches.erase(it);
 		}
 	}
@@ -328,6 +342,11 @@ void ofxMtActionsObject::setIsRotatable(bool _rotatable, int* _nbOfTouchForRotat
 }
 
 //--------------------------------------------------------------
+void ofxMtActionsObject::setIsTappable(bool _tappable){
+  tappable = _tappable;
+}
+
+//--------------------------------------------------------------
 bool ofxMtActionsObject::isDraggable(){
 	return draggable;
 }
@@ -340,6 +359,11 @@ bool ofxMtActionsObject::isScalable(){
 //--------------------------------------------------------------
 bool ofxMtActionsObject::isRotatable(){
 	return rotatable;
+}
+
+//--------------------------------------------------------------
+bool ofxMtActionsObject::isTappable(){
+	return tappable;
 }
 
 //--------------------------------------------------------------

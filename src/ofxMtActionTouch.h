@@ -44,6 +44,7 @@ class ofxMtActionTouch: public ofVec2f {
 		ofVec2f lastCentroidDelta;
 		float centroidDistance;
 		float lastCentroidDistance;
+    int timestamp;
 		ofxMtActionTouch() {
 		
 		}
@@ -58,6 +59,7 @@ class ofxMtActionTouch: public ofVec2f {
 			lastCentroidDelta		= 0;
 			centroidDistance		= 0;
 			lastCentroidDistance	= 0;
+      timestamp = ofGetElapsedTimeMillis();
 		}
 		
 		void setCentroid(ofVec2f centroid) {
