@@ -188,11 +188,14 @@ void ofxMtActionsObject::render(){
 	glColor3f(1,1,1);
 	glPushMatrix();
 		glTranslatef(x, y, 0);
+    //cout << "ofxMtActionsObject Translate: " << x << ", " << y << endl;
 		glRotatef(180.0f*rotation/PI, 0, 0, 1);
 		drawContent();
 		//ofRect(0, 0, width, height);
 		//ofRect(-width/2, -height/2, width, height);
 	glPopMatrix();
+		//glRotatef(-180.0f*rotation/PI, 0, 0, 1);
+		//glTranslatef(-x, -y, 0);
 
 
 	if(drawTouchCounts) {
@@ -345,12 +348,15 @@ void ofxMtActionsObject::updateState() {
 		state = FIXE;
 	} else if(touches.size() == 1) {
 		state = DRAGGING;
+    cout << "ofxMtActionsObject: state DRAGGING" << endl;
 	} else if(touches.size() >= 3) {
 		state = DRAGGING;
 	} else if(touches.size() == 2) {
 		state = ROTATESCALE;
+    cout << "ofxMtActionsObject: state ROTATESCALE" << endl;
 	}
 
+  
 
 
 }
@@ -421,12 +427,12 @@ void ofxMtActionsObject::transform(ofVec2f vec, float angle, float _scale) {
 		}
 	}
 
-
+  /*
 	if(x<0) x = 0;
 	if(x>ofGetWidth()) x = ofGetWidth();
 	if(y<0) y = 0;
 	if(y>ofGetHeight()) y = ofGetHeight();
-
+  */
 }
 
 //--------------------------------------------------------------
