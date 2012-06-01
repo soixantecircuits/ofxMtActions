@@ -44,7 +44,7 @@ class ofxMtActionsObject : public ofxMtObject{
 		virtual void updateContent();
 		virtual void tapContent(ofVec2f position);
 		
-		bool ownTouchCursor(int touchCursorSessionID);
+		virtual bool ownTouchCursor(int touchId);
 	
 		int getSessionID();
 		
@@ -60,9 +60,9 @@ class ofxMtActionsObject : public ofxMtObject{
 		bool isRotatable();
 		bool isTappable();
 		
-		void actionTouchDown(float x, float y, int touchId, ofxMultiTouchCustomData *data = NULL);
-		void actionTouchMoved(float x, float y, int touchId, ofxMultiTouchCustomData *data = NULL);
-		void actionTouchUp(float x, float y, int touchId, ofxMultiTouchCustomData *data = NULL);
+		virtual void actionTouchDown(float x, float y, int touchId);
+		virtual void actionTouchMoved(float x, float y, int touchId);
+		virtual void actionTouchUp(float x, float y, int touchId);
 	
 	protected:
 		int state;
@@ -118,7 +118,7 @@ class ofxMtActionsObject : public ofxMtObject{
 		ofVec2f lastHit;
 	
 		//utils
-		bool actionTouchHitTest(float _x, float _y);
+		virtual bool actionTouchHitTest(float _x, float _y);
 	
 		void updateState();
 		void transform(ofVec2f vec, float angle, float _scale);

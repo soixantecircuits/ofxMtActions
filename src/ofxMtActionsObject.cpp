@@ -224,16 +224,16 @@ void ofxMtActionsObject::render(){
 }
 
 //--------------------------------------------------------------
-void ofxMtActionsObject::actionTouchDown(float _x, float _y, int touchId, ofxMultiTouchCustomData *data) {
+void ofxMtActionsObject::actionTouchDown(float _x, float _y, int touchId) {
 	// see if the touch lands on the mtActionsObject
-	if(actionTouchHitTest(_x*ofGetWidth(), _y*ofGetHeight())) {
+	if(actionTouchHitTest(_x, _y)) {
 		// see if it already exists
 		map<int,ofxMtActionTouch>::iterator it = touches.find(touchId);
 		if(it!=touches.end()) {
-			touches[touchId].x = _x*ofGetWidth();
-			touches[touchId].y = _y*ofGetHeight();
+			touches[touchId].x = _x;
+			touches[touchId].y = _y;
 		} else {
-			touches[touchId] = ofxMtActionTouch(touchId, _x*ofGetWidth(), _y*ofGetHeight());
+			touches[touchId] = ofxMtActionTouch(touchId, _x, _y);
 		}
 
 		if (highestSessionID < touchId) {
@@ -252,22 +252,22 @@ void ofxMtActionsObject::actionTouchDown(float _x, float _y, int touchId, ofxMul
 }
 
 //--------------------------------------------------------------
-void ofxMtActionsObject::actionTouchMoved(float _x, float _y, int touchId, ofxMultiTouchCustomData *data) {
+void ofxMtActionsObject::actionTouchMoved(float _x, float _y, int touchId) {
 	if(state != FIXE) {
 		// see if the touch had previously landed on the mtActionsObject
 		map<int,ofxMtActionTouch>::iterator it = touches.find(touchId);
 		if(it!=touches.end()) {
-			touches[touchId].x = _x*ofGetWidth();
-			touches[touchId].y = _y*ofGetHeight();
+			touches[touchId].x = _x;
+			touches[touchId].y = _y;
 		}
 	}
 }
 
 //--------------------------------------------------------------
-void ofxMtActionsObject::actionTouchUp(float _x, float _y, int touchId, ofxMultiTouchCustomData *data) {
+void ofxMtActionsObject::actionTouchUp(float _x, float _y, int touchId) {
 	//(*it)->touchUp(_x, _y, touchId, data);
 	// remove the blob
-	if(actionTouchHitTest(_x*ofGetWidth(), _y*ofGetHeight())) {
+	if(actionTouchHitTest(_x, _y)) {
 		map<int,ofxMtActionTouch>::iterator it = touches.find(touchId);
 		if(it!=touches.end()) {
       //check if it's a tap
@@ -460,11 +460,11 @@ void ofxMtActionsObject::transform(ofVec2f vec, float angle, float _scale) {
 }
 
 //--------------------------------------------------------------
-bool ofxMtActionsObject::ownTouchCursor(int touchCursorSessionID) {
+bool ofxMtActionsObject::ownTouchCursor(int touchId) {
 	map<int,ofxMtActionTouch>::iterator it;
 	for ( it=touches.begin() ; it != touches.end(); it++ ) {
 		ofxMtActionTouch t = touches[(*it).first];
-		if(t.sessionID == touchCursorSessionID) {
+		if(t.sessionID == touchId) {
 			return true;
 		}
 	}
@@ -474,18 +474,15 @@ bool ofxMtActionsObject::ownTouchCursor(int touchCursorSessionID) {
 
 //--------------------------------------------------------------
 bool ofxMtActionsObject::actionTouchHitTest(float _x, float _y) {
+  ofVec2f p = ofVec2f(_x, _y);
 	if (rotatable || rotation != 0) {
-		ofVec2f p = ofVec2f(_x, _y);
 		p.x -= x;
 		p.y -= y;
 		p.rotateRad(-rotation);
 		lastHit = p;
 		p.x += x;
 		p.y += y;
-
-		return hitTest(p.x + width/2, p.y + height/2);
-	} else {
-		return hitTest(_x, _y); //
 	}
-
+  p += ofVec2f(width, height) / 2.;
+  return hitTest(p.x, p.y);
 }
