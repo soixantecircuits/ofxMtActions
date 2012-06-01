@@ -177,7 +177,7 @@ void ofxMtActionsObject::update() {
 
 //--------------------------------------------------------------
 void ofxMtActionsObject::tapContent(ofVec2f position) {
-  cout << "tap" << endl;  
+  cout << "tap" << endl;
 }
 
 //--------------------------------------------------------------
@@ -267,6 +267,7 @@ void ofxMtActionsObject::actionTouchMoved(float _x, float _y, int touchId, ofxMu
 void ofxMtActionsObject::actionTouchUp(float _x, float _y, int touchId, ofxMultiTouchCustomData *data) {
 	//(*it)->touchUp(_x, _y, touchId, data);
 	// remove the blob
+	cout << "touchup" << endl;
 	if(actionTouchHitTest(_x*ofGetWidth(), _y*ofGetHeight())) {
 		map<int,ofxMtActionTouch>::iterator it = touches.find(touchId);
 		if(it!=touches.end()) {
@@ -380,7 +381,7 @@ void ofxMtActionsObject::updateState() {
     cout << "ofxMtActionsObject: state ROTATESCALE" << endl;
 	}
 
-  
+
 
 
 }
