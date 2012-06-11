@@ -73,8 +73,8 @@ void ofxMtActionsObject::update() {
 
 	if(touches.size()>0) {
 
-        cout << "moving speed.x = " << acceleration.x << endl;
-        cout << "moving speed.x = " << acceleration.y << endl;
+//        cout << "moving speed.x = " << acceleration.x << endl;
+//        cout << "moving speed.x = " << acceleration.y << endl;
 
 		// add up all the movements
 		int deltaCount = 0;
@@ -177,7 +177,7 @@ void ofxMtActionsObject::update() {
 
 //--------------------------------------------------------------
 void ofxMtActionsObject::tapContent(ofVec2f position) {
-  cout << "tap" << endl;
+//  cout << "tap" << endl;
 }
 
 //--------------------------------------------------------------
@@ -277,7 +277,6 @@ void ofxMtActionsObject::actionTouchUp(float _x, float _y, int touchId) {
           tapContent(touches[(*it).first].last);
         }
       }
-
 			touches.erase(it);
 		}
 	}
@@ -372,12 +371,12 @@ void ofxMtActionsObject::updateState() {
 		state = FIXE;
 	} else if(touches.size() == 1) {
 		state = DRAGGING;
-    cout << "ofxMtActionsObject: state DRAGGING" << endl;
+//    cout << "ofxMtActionsObject: state DRAGGING" << endl;
 	} else if(touches.size() >= 3) {
 		state = DRAGGING;
 	} else if(touches.size() == 2) {
 		state = ROTATESCALE;
-    cout << "ofxMtActionsObject: state ROTATESCALE" << endl;
+ //   cout << "ofxMtActionsObject: state ROTATESCALE" << endl;
 	}
 
 
