@@ -55,8 +55,8 @@ class ofxMtActionTouch: public ofVec2f {
 			y = _y;
 			last = ofVec2f(_x, _y);
 			isNew = true;
-			centroidDelta			= 0;
-			lastCentroidDelta		= 0;
+			centroidDelta			= ofVec2f(0,0);
+			lastCentroidDelta		= ofVec2f(0,0);
 			centroidDistance		= 0;
 			lastCentroidDistance	= 0;
       timestamp = ofGetElapsedTimeMillis();
